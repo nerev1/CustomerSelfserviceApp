@@ -1,0 +1,23 @@
+<template>
+    <lightning-layout class="slds-p-around_x-small">
+      <lightning-layout-item class="slds-p-around_x-small">
+        <template if:true={totalItemsCount}>
+        <lightning-combobox
+            name="Items"
+            label="Items per page"
+            value={currentItemsCount}
+            options={itemsCountList}
+            onchange={handleChangeItemsCount}></lightning-combobox>
+          </template>
+      </lightning-layout-item>
+      <lightning-layout-item class="slds-p-around_x-small page-buttons">
+        <lightning-button-group>
+          <lightning-button label="1st" onclick={clickFirstPage} disabled={isFirstDisabled}></lightning-button>
+          <lightning-button label="prev" onclick={clickPreviousPage} disabled={isPreviousDisabled}></lightning-button>
+          <lightning-button label={currentPage} class="slds-p-horizontal_x-small"></lightning-button>
+          <lightning-button label="next" onclick={clickNextPage} disabled={isNextDisabled}></lightning-button>
+          <lightning-button label="last" onclick={clickLastPage} disabled={isLastDisabled}></lightning-button>
+        </lightning-button-group>
+      </lightning-layout-item>
+    </lightning-layout>
+</template>

@@ -1,0 +1,11 @@
+.tile {
+  border: 1px solid gray;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 150px;
+}
+
+.tile:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: 0.2s;
+}

@@ -1,0 +1,34 @@
+<template>
+    <lightning-card 
+      title='Menu' 
+      icon-name="utility:food_and_drink" 
+      class="slds-p-around_x-small">
+        <template if:true={dishes}>
+          <c-paginator 
+            total-items-count={dishes.length} 
+            onswitchitemscount={handleChangeItemsCount}>
+          </c-paginator>
+          <c-filters
+            onswitchcategories={handleSwitchCategories}>
+          </c-filters>
+        </template>
+
+        
+        <template if:true={displayedDishes}>
+          <lightning-layout multiple-rows class="slds-p-around_x-small">
+            <template for:each={displayedDishes} for:item="dish">
+              <lightning-layout-item class="slds-p-around_x-small" size="3" key={dish.Id}>
+                <c-dish-tile
+                  dish-name={dish.Name} 
+                  dish-price={dish.Price__c} 
+                  dish-description={dish.Description__c}
+                  oncountchange={handleChangeDishCount}>
+                </c-dish-tile>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </template>
+        <lightning-button label="hehe" onclick={handleMenuClick}></lightning-button>
+    </lightning-card>
+    
+</template>

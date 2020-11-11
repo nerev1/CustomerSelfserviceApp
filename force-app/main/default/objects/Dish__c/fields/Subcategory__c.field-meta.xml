@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subcategory__c</fullName>
+    <externalId>false</externalId>
+    <label>Subcategory</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Category__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Subcategory</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Soups</controllingFieldValue>
+            <valueName>Thick soups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Soups</controllingFieldValue>
+            <valueName>Thin soups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Soups</controllingFieldValue>
+            <valueName>Cold soups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Soups</controllingFieldValue>
+            <valueName>National/Special soups</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Main Dishes</controllingFieldValue>
+            <valueName>Meat dishes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Main Dishes</controllingFieldValue>
+            <valueName>Vegetarian dishes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drinks</controllingFieldValue>
+            <valueName>Soft drinks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drinks</controllingFieldValue>
+            <valueName>Hot drinks</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drinks</controllingFieldValue>
+            <valueName>Milk shakes</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drinks</controllingFieldValue>
+            <valueName>Beer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Drinks</controllingFieldValue>
+            <valueName>Wine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salads</controllingFieldValue>
+            <valueName>Green salads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salads</controllingFieldValue>
+            <valueName>Vegetable salads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salads</controllingFieldValue>
+            <valueName>Bound salads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salads</controllingFieldValue>
+            <valueName>Fruit salads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Salads</controllingFieldValue>
+            <valueName>Composed salads</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Desserts</controllingFieldValue>
+            <valueName>Ice-creams</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Desserts</controllingFieldValue>
+            <valueName>Cakes</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
