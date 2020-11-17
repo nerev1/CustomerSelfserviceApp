@@ -1,14 +1,12 @@
 <template>
     <lightning-layout class="slds-p-around_x-small">
       <lightning-layout-item class="slds-p-around_x-small">
-        <template if:true={totalItemsCount}>
         <lightning-combobox
-            name="Items"
-            label="Items per page"
-            value={currentItemsCount}
-            options={itemsCountList}
-            onchange={handleChangeItemsCount}></lightning-combobox>
-          </template>
+          name="Items"
+          label="Items per page"
+          value={currentItemsCount}
+          options={itemsCountList}
+          onchange={handleChangeItemsCount}></lightning-combobox>
       </lightning-layout-item>
       <lightning-layout-item class="slds-p-around_x-small page-buttons">
         <lightning-button-group>

@@ -21,7 +21,7 @@ export default class Paginator extends LightningElement {
   }
 
   generatePageButtons() {
-    this.pageCount = Math.ceil(this.itemsCount / this.pageItemsCount);
+    this.pageCount = this.itemsCount < 1 ? 1 : Math.ceil(this.itemsCount / this.pageItemsCount);
     this.dispatchDispayedItems();
     this.togglePageButtonsState();
   }
@@ -94,15 +94,12 @@ export default class Paginator extends LightningElement {
     this.currentPage = 1;
     this.pageItemsCount = 4;
     this.generatePageButtons();
-    this.dispatchDispayedItems();
   }
 
   @api
-  resetPagination(itemsCount) {
-    this.itemsCount = itemsCount;
-    this.generatePageButtons().
-      then(() => {
-        this.dispatchDispayedItems();
-      });
+  resetPagination(count) {
+    this.itemsCount = count;
+    this.currentPage = 1;
+    this.generatePageButtons();
   }
 }

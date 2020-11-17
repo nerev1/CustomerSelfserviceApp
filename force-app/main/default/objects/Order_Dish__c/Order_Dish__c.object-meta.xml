@@ -159,7 +159,7 @@
         <label>Order Dish Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Order_Items</pluralLabel>
+    <pluralLabel>Order_Dishes</pluralLabel>
     <searchLayouts/>
     <sharingModel>ControlledByParent</sharingModel>
     <startsWith>Vowel</startsWith>

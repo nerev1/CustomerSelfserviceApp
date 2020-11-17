@@ -5,7 +5,7 @@
       class="slds-p-around_x-small">
         <template if:true={dishes}>
           <c-paginator 
-            total-items-count={dishes.length} 
+            total-items-count={itemsCount} 
             onswitchitemscount={handleChangeItemsCount}>
           </c-paginator>
           <c-filters
@@ -19,6 +19,7 @@
             <template for:each={displayedDishes} for:item="dish">
               <lightning-layout-item class="slds-p-around_x-small" size="3" key={dish.Id}>
                 <c-dish-tile
+                  dish-id={dish.Id}
                   dish-name={dish.Name} 
                   dish-price={dish.Price__c} 
                   dish-description={dish.Description__c}
@@ -28,7 +29,6 @@
             </template>
           </lightning-layout>
         </template>
-        <lightning-button label="hehe" onclick={handleMenuClick}></lightning-button>
     </lightning-card>
     
 </template>

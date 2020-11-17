@@ -8,8 +8,8 @@ export default class Filters extends LightningElement {
   @track categoryValuesList = [];
   @track subcategoryValuesList = [];
   @track subcategoryValues = [];
-  @track selectedCategory;
-  @track selectedSubcategory;
+  @track selectedCategory = 'All';
+  @track selectedSubcategory = 'All';
   @track error;
   @track controlValues;
   
@@ -72,7 +72,6 @@ export default class Filters extends LightningElement {
       });
     }
     this.dispatchCategoryFiltersSwitchEvent();
-    
   }
 
   handleSubcategoryChange(event) {

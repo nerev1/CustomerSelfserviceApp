@@ -1,7 +1,33 @@
 <template>
-  <lightning-card title="Current Order" icon-name="utility:food_and_drink" class="slds-p-around_x-small">
-    <p>{hello}</p>
-    <p></p>
-    <p></p>
+  <lightning-card 
+    title="Current Order" 
+    icon-name="utility:food_and_drink" 
+    class="slds-p-around_x-small">
+    <p class="slds-m-around_medium">
+      Total Price
+      <lightning-formatted-number
+        class="slds-m-around_x-small"
+        value={totalPrice}
+        format-style="currency"
+        currency-code="USD">
+      </lightning-formatted-number>
+    </p>
+    <lightning-layout 
+      class="slds-p-around_small">
+      <lightning-button
+        class="slds-m-around_x-small"
+        label="Order Details" 
+        onclick={openModal}></lightning-button>
+      <lightning-button 
+        class="slds-m-around_x-small"
+        label="Make an order" 
+        onclick={makeAnOrder}></lightning-button>
+    </lightning-layout>
+    <template if:true={isModalOpen}>
+      <c-order-detail
+        dishes={dishes}
+        onclosemodalevent={handleCloseModal}>
+      </c-order-detail>
+    </template>
   </lightning-card>
 </template>

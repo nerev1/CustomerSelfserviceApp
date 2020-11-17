@@ -2,10 +2,15 @@
   border: 1px solid gray;
   border-radius: 5px;
   cursor: pointer;
-  height: 150px;
+  min-height: 200px;
 }
 
 .tile:hover {
   background-color: rgba(0, 0, 0, 0.05);
   transition: 0.2s;
+}
+
+.dish-tile-button {
+  min-width: 90%;
+  margin: auto;
 }
