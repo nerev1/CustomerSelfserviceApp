@@ -7,16 +7,36 @@ import addDishToOrder from '@salesforce/apex/DishOrderController.addDishToOrder'
 export default class CurrentOrder extends LightningElement {
   @wire(MessageContext)
   messageContext;
-  @track subscription = null;
-  @track dishMap = new Map();
-  @track dishes = [];
-  @track isModalOpen = false;
-  @track totalPrice = 0;
-
+  @track subscription;
+  @track dishes;
+  @track isModalOpen;
+  @track totalPrice;
   @track orderId;
+  @track error;
+  @track deliveryAddress;
+  @track isDisabledAddress;
 
   connectedCallback() {
+    this.resetOrderDetails();
+  }
+  
+  resetOrderDetails() {
+    this.deliveryAddress = '';
+    this.isDelivery = false;
+    this.isDisabledAddress = true;
+    this.isModalOpen = false;
+    this.dishes = [];
+    this.updateTotalPrice();
     this.subscribeToMessageChannel();
+  }
+
+  switchIsDelivery() {
+    this.isDelivery = !this.isDelivery;
+    this.isDisabledAddress = !this.isDelivery;
+  }
+
+  addressChange(event) {
+    this.deliveryAddress = event.target.value;
   }
 
   subscribeToMessageChannel() {
@@ -29,45 +49,12 @@ export default class CurrentOrder extends LightningElement {
   }
 
   handleMessage(message) {
-    if (this.dishMap.has(message.dishId)) {
-      if (message.dishCount > 0) {
-        let dishDetail = this.dishMap.get(message.dishId);
-        dishDetail.count = message.dishCount;
-        dishDetail.comment = message.dishComment;
-        dishDetail.totalPrice = dishDetail.count * dishDetail.price;
-      } else {
-        this.dishMap.delete(message.dishId);
-      }
-    } else {
-      if (message.dishCount) {
-        this.dishMap.set(message.dishId, {
-          name: message.dishName,
-          price: message.dishPrice,
-          count: message.dishCount,
-          totalPrice: message.dishPrice,
-          comment: message.dishComment
-        });
-      }
-    }
-    this.mapToArray();
+    this.dishes = message.dishes.filter(dish => dish.count > 0);
     this.updateTotalPrice();
   }
 
-  mapToArray() {
-    this.dishes = [];
-    for (let key of this.dishMap.keys()) {
-      this.dishes.push({
-        key: key,
-        value: this.dishMap.get(key)
-      });
-    }
-  }
-
   updateTotalPrice() {
-    this.totalPrice = 0;
-    this.dishes.forEach(dish => {
-      this.totalPrice += dish.value.count * dish.value.price;
-    });
+    this.totalPrice = this.dishes.reduce((sum, dish) => sum + dish.count * dish.Price__c, 0);
   }
 
   openModal() {
@@ -79,30 +66,40 @@ export default class CurrentOrder extends LightningElement {
   }
 
   makeAnOrder() {
-    if (!this.dishes) {
+    if (!this.dishes.length) {
       return;
     }
-    makeOrder({totalPrice: this.totalPrice})
+    this.deliveryAddress = this.isDelivery ? this.deliveryAddress : null;
+    makeOrder({
+      totalPrice: this.totalPrice,
+      deliveryAddress: this.deliveryAddress
+    })
       .then(result => {
         return result;
       })
       .then(result => {
-        console.log(result);
-        for (let [key, value] of this.dishMap) {
-          console.log(key + ' . ' + value);
+        this.dishes.forEach( dish => {
           addDishToOrder({
             orderId: result,
-            dishId: key,
-            dishComment: value.comment,
-            dishCount: value.count
+            dishId: dish.Id,
+            dishComment: dish.comment,
+            dishCount: dish.count
+          })
+          .catch(error => {
+            this.error = error;
+            console.log(JSON.stringify(error));
           });
-        }
+        });
       })
       .catch(error => {
+        this.error = error;
         console.log(JSON.stringify(error));
       });
-    //this.dishMap = new Map();
-    //this.dishes = [];
+    this.dispatchResetOrderDetails();
+    this.resetOrderDetails();
+  }
+
+  dispatchResetOrderDetails() {
     const resetOrderDetails = new CustomEvent('resetorder');
     this.dispatchEvent(resetOrderDetails);
   }

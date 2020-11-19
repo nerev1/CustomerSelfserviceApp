@@ -1,73 +1,67 @@
 import { LightningElement, api, wire, track} from 'lwc';
-import DISH_ORDER_MC from '@salesforce/messageChannel/DishCountUpdate__c';
-import { publish, MessageContext } from 'lightning/messageService';
 
 export default class DishTile extends LightningElement {
   @api dishId;
   @api dishName;
   @api dishPrice;
   @api dishDescription;
-  @track dishComment = '';
-  @track dishCount;
-  @track isDecreaseDisabled;
-  @track isCommentModalOpen = false;
+  @api dishComment;
+  @api dishCount;
 
-  @wire(MessageContext)
-  messageContext;
+  @track commentTemp;
+  @track isCommentModalOpen;
 
   decreaseCount() {
-    this.dishCount--;
-    this.updateDishItem();
-    if (this.dishCount === 0) {
-      this.isDecreaseDisabled = true;
+    if (this.dishCount < 0) {
+      this.dishCount = 0;
+      this.dispatchDishData();
+    } else if (this.dishCount > 0) {
+      this.dishCount--;
+      this.dispatchDishData();
     }
   }
 
   increaseCount() {
-    this.dishCount++;
-    this.updateDishItem();
-    this.isDecreaseDisabled = false;
-  }
-
-  updateDishItem() {
-    const message = {
-      dishId: this.dishId,
-      dishName: this.dishName,
-      dishPrice: this.dishPrice,
-      dishCount: this.dishCount,
-      dishComment: this.dishComment
+    if (this.dishCount < 0) {
+      this.dishCount = 1;
+      this.dispatchDishData();
+    } else {
+      this.dishCount++;
+      this.dispatchDishData();
     }
-    publish(this.messageContext, DISH_ORDER_MC, message);
-  }
-
-  @api
-  resetDetail() {
-    this.dishCount = 0;
-    this.dishComment = '';
-    this.updateDishItem();
-    this.isDecreaseDisabled = true;
   }
 
   changeComment(event) {
     this.dishComment = event.target.value;
   }
 
+  confirmComment() {
+    this.isCommentModalOpen = false;
+    this.dispatchDishData();
+  }
+
   openCommentModal() {
+    this.commentTemp = this.dishComment;
     this.isCommentModalOpen = true;
   }
 
-  confirmComment() {
-    this.updateDishItem();
+  closeCommentModal() {
+    this.dishComment = this.commentTemp;
     this.isCommentModalOpen = false;
   }
 
-  closeCommentModal() {
-    this.dishComment = '';
-    this.isCommentModalOpen = false;
+  dispatchDishData() {
+    const updateDishData = new CustomEvent('updatedishdata', { 
+      detail: {
+        dishId: this.dishId,
+        dishComment: this.dishComment,
+        dishCount: this.dishCount
+      }
+    });
+    this.dispatchEvent(updateDishData);
   }
 
   connectedCallback() {
-    this.isDecreaseDisabled = true;
-    this.dishCount = 0;
+    
   }
 }

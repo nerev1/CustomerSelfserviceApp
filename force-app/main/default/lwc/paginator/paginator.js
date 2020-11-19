@@ -2,28 +2,65 @@ import { LightningElement, api, track } from 'lwc';
 
 export default class Paginator extends LightningElement {
   @api totalItemsCount;
-
-  @track itemsCount;
-  @track itemsCountList;
-  @track pageItemsCount;
+  
+  @track itemsCountOnPage;
+  @track firstDisplayedItem;
+  
   @track currentPage;
   @track pageCount;
+  @track itemsCountOnPageOptions;
 
-  @track isFirstDisabled = true;
-  @track isPreviousDisabled = true;
-  @track isNextDisabled = true;
-  @track isLastDisabled = true;
+  @track isFirstDisabled;
+  @track isPreviousDisabled;
+  @track isNextDisabled;
+  @track isLastDisabled;
+  
+  connectedCallback() {
+    this.itemsCountOnPageOptions = [
+      {label: '4', value: '4'},
+      {label: '8', value: '8'},
+      {label: '12', value: '12'},
+      {label: '16', value: '16'}
+    ];
+    this.currentPage = 1;
+    this.itemsCountOnPage = +this.itemsCountOnPageOptions[0].value;
+    this.generatePageButtons();
+    this.dispatchDispayedItems();
+  }
 
   handleChangeItemsCount(event) {
-    this.pageItemsCount = event.target.value;
+    this.itemsCountOnPage = event.target.value;
     this.currentPage = 1;
     this.generatePageButtons();
+    this.dispatchDispayedItems();
   }
 
   generatePageButtons() {
-    this.pageCount = this.itemsCount < 1 ? 1 : Math.ceil(this.itemsCount / this.pageItemsCount);
+    this.pageCount = this.totalItemsCount < 1 
+      ? 1 
+      : Math.ceil(this.totalItemsCount / this.itemsCountOnPage);
+    this.firstDisplayedItem = (this.currentPage - 1) * this.itemsCountOnPage;
     this.dispatchDispayedItems();
     this.togglePageButtonsState();
+  }
+
+  dispatchDispayedItems() {
+    let dishesInfo = {
+                      itemsCountOnPage: +this.itemsCountOnPage,
+                      firstDisplayedItem: this.firstDisplayedItem
+                     };
+    const switchCountEvent = new CustomEvent('switchitemscount', {
+      detail: dishesInfo
+    });
+    this.dispatchEvent(switchCountEvent);
+  }
+
+  @api
+  resetPagination(count) {
+    this.itemsCount = count;
+    this.currentPage = 1;
+    this.generatePageButtons();
+    this.dispatchDispayedItems();
   }
 
   togglePageButtonsState() {
@@ -70,36 +107,5 @@ export default class Paginator extends LightningElement {
       this.currentPage++;
       this.generatePageButtons();
     }
-  }
-
-  dispatchDispayedItems() {
-    let firstDisplayedItem = (this.currentPage - 1) * this.pageItemsCount + 1;
-    let dishesInfo = { 
-                      pageItemsCount: this.pageItemsCount,
-                      firstDisplayedItemNumber: firstDisplayedItem
-                     };
-    const switchCountEvent = new CustomEvent('switchitemscount', {
-      detail: dishesInfo
-    });
-    this.dispatchEvent(switchCountEvent);
-  }
-
-  connectedCallback() {
-    this.itemsCount = this.totalItemsCount;
-    this.itemsCountList = [
-      {label: '4', value: '4'},
-      {label: '8', value: '8'},
-      {label: '12', value: '12'},
-    ];
-    this.currentPage = 1;
-    this.pageItemsCount = 4;
-    this.generatePageButtons();
-  }
-
-  @api
-  resetPagination(count) {
-    this.itemsCount = count;
-    this.currentPage = 1;
-    this.generatePageButtons();
   }
 }

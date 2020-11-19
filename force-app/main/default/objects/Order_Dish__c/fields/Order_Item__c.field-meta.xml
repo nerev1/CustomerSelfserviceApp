@@ -4,8 +4,8 @@
     <externalId>false</externalId>
     <label>Order Item</label>
     <referenceTo>Order_Item__c</referenceTo>
-    <relationshipLabel>Order_Items</relationshipLabel>
-    <relationshipName>Order_Items</relationshipName>
+    <relationshipLabel>Order Dishes</relationshipLabel>
+    <relationshipName>Order_Dishes</relationshipName>
     <relationshipOrder>0</relationshipOrder>
     <reparentableMasterDetail>false</reparentableMasterDetail>
     <trackTrending>false</trackTrending>

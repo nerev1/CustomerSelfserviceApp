@@ -1,34 +1,41 @@
 <template>
+  <template if:true={dishes}>
     <lightning-card 
       title='Menu' 
       icon-name="utility:food_and_drink" 
       class="slds-p-around_x-small">
-        <template if:true={dishes}>
-          <c-paginator 
-            total-items-count={itemsCount} 
-            onswitchitemscount={handleChangeItemsCount}>
-          </c-paginator>
-          <c-filters
-            onswitchcategories={handleSwitchCategories}>
-          </c-filters>
+      <c-filters
+        onswitchcategories={handleSwitchCategories}>
+      </c-filters>
+      <lightning-layout multiple-rows class="slds-p-around_x-small">
+        <template for:each={displayedDishes} for:item="dish">
+          <lightning-layout-item class="slds-p-around_x-small" size="3" key={dish.Id}>
+            <c-dish-tile
+              dish-id={dish.Id}
+              dish-name={dish.Name} 
+              dish-price={dish.Price__c} 
+              dish-description={dish.Description__c}
+              dish-count={dish.count}
+              dish-comment={dish.comment}
+              onupdatedishdata={handleUpdateDishData}>
+            </c-dish-tile>
+          </lightning-layout-item>
         </template>
-
-        
-        <template if:true={displayedDishes}>
-          <lightning-layout multiple-rows class="slds-p-around_x-small">
-            <template for:each={displayedDishes} for:item="dish">
-              <lightning-layout-item class="slds-p-around_x-small" size="3" key={dish.Id}>
-                <c-dish-tile
-                  dish-id={dish.Id}
-                  dish-name={dish.Name} 
-                  dish-price={dish.Price__c} 
-                  dish-description={dish.Description__c}
-                  oncountchange={handleChangeDishCount}>
-                </c-dish-tile>
-              </lightning-layout-item>
-            </template>
-          </lightning-layout>
-        </template>
+      </lightning-layout>
+      <c-paginator 
+        total-items-count={dishes.length} 
+        onswitchitemscount={handleChangeItemsCount}>
+      </c-paginator>
+      <lightning-layout>
+        <button 
+          class="slds-button slds-button_neutral" 
+          onclick={openOrderHistory} 
+          title="Previous Orders">Previous Orders
+        </button>
+      </lightning-layout>
     </lightning-card>
-    
+  </template>
+  <template if:true={isOpenHistory}>
+    <c-orders onclosemodal={closeOrderHistory}></c-orders>
+  </template>
 </template>

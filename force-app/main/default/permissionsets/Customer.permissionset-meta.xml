@@ -27,11 +27,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Order_Dish__c.Copy_of_Total_Dish_Price__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Order_Dish__c.Dish_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>

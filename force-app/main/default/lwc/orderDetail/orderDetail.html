@@ -18,13 +18,11 @@
               <lightning-layout multiple-rows>
                 <template for:each={dishes} for:item="dish">
                   <lightning-layout-item 
-                    key={dish.key} 
+                    key={dish.Id}
                     class="slds-p-around_x-small order-item-card"
                     size="4">
-                    <p>Name: {dish.value.name}</p>
-                    <p>Price: {dish.value.price}</p>
-                    <p>Count: {dish.value.count}</p>
-                    <p>Total price for dish: {dish.value.totalPrice} </p>
+                    <p>Name: {dish.Name}</p>
+                    <p>Count: {dish.count}</p>
                   </lightning-layout-item>
                 </template>
               </lightning-layout>

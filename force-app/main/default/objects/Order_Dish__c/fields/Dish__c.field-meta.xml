@@ -5,8 +5,8 @@
     <externalId>false</externalId>
     <label>Dish</label>
     <referenceTo>Dish__c</referenceTo>
-    <relationshipLabel>Order_Items</relationshipLabel>
-    <relationshipName>Order_Items</relationshipName>
+    <relationshipLabel>Dishes</relationshipLabel>
+    <relationshipName>Dishes</relationshipName>
     <required>false</required>
     <trackTrending>false</trackTrending>
     <type>Lookup</type>

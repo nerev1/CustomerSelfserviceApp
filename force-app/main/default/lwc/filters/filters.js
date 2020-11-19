@@ -5,8 +5,9 @@ import DISH_OBJECT from '@salesforce/schema/Dish__c';
 
 export default class Filters extends LightningElement {
   
-  @track categoryValuesList = [];
-  @track subcategoryValuesList = [];
+  @track categoryValues = [];
+  @track categoryOptions = [];
+  @track subcategoryOptions = [];
   @track subcategoryValues = [];
   @track selectedCategory = 'All';
   @track selectedSubcategory = 'All';
@@ -36,8 +37,8 @@ export default class Filters extends LightningElement {
       let subcategoryOptions = [{label: 'All', value: 'All'}];
       this.selectedSubcategory = subcategoryOptions[0].value;
       this.controlValues = data.picklistFieldValues.Subcategory__c.controllerValues;
-      this.subcategoryValuesList = data.picklistFieldValues.Subcategory__c.values;
-      this.subcategoryValuesList.forEach( subcategory => {
+      this.subcategoryOptions = data.picklistFieldValues.Subcategory__c.values;
+      this.subcategoryOptions.forEach( subcategory => {
         subcategoryOptions.push({
           label: subcategory.label,
           value: subcategory.value
@@ -60,7 +61,7 @@ export default class Filters extends LightningElement {
     } else {
       this.isDisabledSubcategory = false;
       this.selectedCategory = event.target.value;
-      this.subcategoryValuesList.forEach( subcategory => {
+      this.subcategoryOptions.forEach( subcategory => {
         if (subcategory.validFor[0] === this.controlValues[this.selectedCategory]) {
           subcategoryOptions.push({
             label: subcategory.label,

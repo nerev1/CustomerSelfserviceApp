@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Ordered</fullName>
+        <default>false</default>
+        <label>Ordered</label>
+    </customValue>
+    <customValue>
+        <fullName>In Deliver</fullName>
+        <default>false</default>
+        <label>In Deliver</label>
+    </customValue>
+    <customValue>
+        <fullName>Received</fullName>
+        <default>false</default>
+        <label>Received</label>
+    </customValue>
+    <customValue>
+        <fullName>Ready</fullName>
+        <default>false</default>
+        <label>Ready</label>
+    </customValue>
+    <masterLabel>Delivery Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
