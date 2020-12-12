@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>*</members>
+        <members>DishController</members>
+        <members>DishOrderController</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexTestSuite</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>currentOrder</members>
+        <members>dishTile</members>
+        <members>filters</members>
+        <members>main</members>
+        <members>menu</members>
+        <members>orderDetail</members>
+        <members>orders</members>
+        <members>paginator</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Dish__c</members>
+        <members>Order_Item__c</members>
+        <members>Order_Dish__c</members>
         <name>CustomObject</name>
     </types>
     <types>
-      <members>*</members>
+      <members>Category</members>
+      <members>Delivery_Status</members>
+      <members>Subcategory</members>
       <name>GlobalValueSet</name>
     </types>
     <types>
-        <members>*</members>
-        <name>StandardValueSet</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>Customer</members>
         <name>PermissionSet</name>
     </types>
     <types>
-        <members>*</members>
-        <name>CustomLabels</name>
-    </types>
-    <types>
-      <members>*</members>
+      <members>Dish__c.Category__c</members>
+      <members>Dish__c.Description__c</members>
+      <members>Dish__c.Price__c</members>
+      <members>Dish__c.Subcategory__c</members>
+      <members>Order_Dish__c.Comment__c</members>
+      <members>Order_Dish__c.Dish__c</members>
+      <members>Order_Dish__c.Dish_Count__c</members>
+      <members>Order_Dish__c.Order_Item__c</members>
+      <members>Order_Dish__c.Total_Dish_Price__c</members>
+      <members>Order_Item__c.Delivery_Address__c</members>
+      <members>Order_Item__c.Order_Date__c</members>
+      <members>Order_Item__c.Status__c</members>
+      <members>Order_Item__c.Total_Price__c</members>
       <name>CustomField</name>
     </types>
     <types>
-      <members>*</members>
-      <name>Profile</name>
+      <members>DishCountUpdate__c</members>
+      <name>LightningMessageChannel</name>
     </types>
     <version>50.0</version>
 </Package>
